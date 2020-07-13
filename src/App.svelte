@@ -35,7 +35,9 @@
         bezier?1:0
     ].join('|');
 
-    $: bezierDisabled = mode==='sequential' ? !(colors.length>1&&colors.length<=5) : !(colors2.length>1&&colors2.length<=5 || colors.length>1&&colors.length<=5);
+    $: bezierDisabled = mode==='manual' || (mode==='sequential' ? !(colors.length>1&&colors.length<=5) : !(colors2.length>1&&colors2.length<=5 || colors.length>1&&colors.length<=5));
+    $: generateColorsDisabled = mode==='manual';
+    $: numOutputColors = generateColorsDisabled ? colors.length : numColors;
 
     const isMac = navigator.platform.toUpperCase().indexOf('MAC') > -1;
 
@@ -69,7 +71,7 @@
         if (parts.length === 6) {
             setTimeout(() => {
                 numColors = +parts[0];
-                mode = parts[1] === 's' ? 'sequential' : 'diverging';
+                mode = parts[1] === 's' ? 'sequential' : (parts[1] === 'd' ? 'diverging' : 'manual');
                 _mode = mode;
                 colors = parts[2].split(',').map(c => c && chroma(c));
                 colors2 = parts[3] !== '' ? parts[3].split(',').map(c => c && chroma(c)) : [];
@@ -150,11 +152,17 @@
         <div class="row">
             <div class="col-md">
                 Palette type:
-                <ButtonGroup options="{['sequential', 'diverging']}" bind:value={mode} />
+                <ButtonGroup options="{['sequential', 'diverging', 'manual']}" bind:value={mode} />
             </div>
-            <div class="col-md">
-                Number of colors: <input type="number" min="2" bind:value={numColors} />
-            </div>
+            {#if generateColorsDisabled}
+                <div class="col-md">
+                    Number of colors: <input type="number" min="2" bind:value={numOutputColors} disabled />
+                </div>
+            {:else}
+                <div class="col-md">
+                    Number of colors: <input type="number" min="2" bind:value={numColors} />
+                </div>
+            {/if}
         </div>
     </Card>
 
@@ -183,7 +191,7 @@
             bind:colors2
             diverging="{mode === 'diverging'}"
             simulate={simulate}
-            bind:numColors />
+            bind:numColors={numOutputColors} />
         <div class="row">
             <div class="col-md">
                 <StepChart title="lightness" steps={steps} mode={0} />
