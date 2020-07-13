@@ -3,4 +3,4 @@ A tool for creating nice, percerptually correct and colorblind-safe color palett
 
 Forked from <https://github.com/gka/palettes>.
 
-### live version at <http://andrewringler.github.io/palettes>
+### live version at <https://andrewringler.github.io/palettes>
