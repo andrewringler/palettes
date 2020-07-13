@@ -215,7 +215,7 @@
     </Card>
     <div class="foot">
         <hr>
-        <p>Created by <a href="https://vis4.net/blog">Gregor Aisch</a> for the sake of better
-        use of colors in maps and data visualizations. Feel free to <a href="https://github.com/gka/palettes">fork on Github</a>.</p>
+        <p>Adpated by Andrew Ringler from <a href="https://github.com/gka/palettes">palettes</a>, originally created by <a href="https://vis4.net/blog">Gregor Aisch</a> for the sake of better
+        use of colors in maps and data visualizations. Feel free to <a href="https://github.com/andrewringler/palettes">fork, this fork on Github</a>.</p>
     </div>
 </div>
