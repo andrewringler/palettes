@@ -17,7 +17,8 @@
     let correctLightness = true;
 
     let colors = '00429d,96ffea,lightyellow'.split(/\s*,\s*/).map(c => chroma(c));
-    let colors2 = 'ffffe0,ff005e,93003a'.split(/\s*,\s*/).map(c => chroma(c));
+    let colors2 = [];
+    // let colors2 = 'ffffe0,ff005e,93003a'.split(/\s*,\s*/).map(c => chroma(c));
     let numColors = 9;
     let mode = 'sequential';
     let simulate = 'none';
@@ -53,6 +54,9 @@
         if (mode !== _mode) {
             if (mode === 'diverging' && !colors2.length) {
                 colors2 = colors.slice(0).reverse();
+            }
+            if (mode === 'sequential' || mode === 'manual') {
+                colors2 = [];
             }
             _mode = mode;
         }
