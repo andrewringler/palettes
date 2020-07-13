@@ -18,9 +18,9 @@
 
     let colors = '00429d,96ffea,lightyellow'.split(/\s*,\s*/).map(c => chroma(c));
     let colors2 = [];
-    // let colors2 = 'ffffe0,ff005e,93003a'.split(/\s*,\s*/).map(c => chroma(c));
     let numColors = 9;
     let mode = 'sequential';
+    let arrangeBy = 'manual';
     let simulate = 'none';
 
     if (window.location.hash) {
@@ -39,6 +39,7 @@
     $: bezierDisabled = (mode==='sequential' || mode==='manual') ? !(colors.length>1&&colors.length<=5) : !(colors2.length>1&&colors2.length<=5 || colors.length>1&&colors.length<=5);
     $: generateColorsDisabled = mode==='manual';
     $: numOutputColors = generateColorsDisabled ? colors.length : numColors;
+    $: colors, arrangeBy, arrangeColors();
 
     const isMac = navigator.platform.toUpperCase().indexOf('MAC') > -1;
 
@@ -69,6 +70,23 @@
     //     }
     //     _mounted = true;
     // })
+
+    function arrangeColors() {
+        if(arrangeBy === 'manual' || mode === 'diverging') {
+            return
+        }
+        setTimeout(() => {
+        if(arrangeBy === 'luminance') {
+            colors = colors.sort((a, b) => a.lch()[0] > b.lch()[0] ? 1 : -1)
+        }
+        if(arrangeBy === 'chroma') {
+            colors = colors.sort((a, b) => a.lch()[1] > b.lch()[1] ? 1 : -1)
+        }
+        if(arrangeBy === 'hue') {
+            colors = colors.sort((a, b) => a.lch()[2] > b.lch()[2] ? 1 : -1)
+        }
+        }, 150)
+    }
 
     function readStateFromHash() {
         const parts = window.location.hash.substr(2).split('|');
@@ -143,6 +161,14 @@
         padding:.1em .6em;
         text-shadow:0 1px 0 #fff;
     }
+    .text-muted {
+        font-size: 0.85rem;
+        display: inline-block;
+        padding-top: 6px;
+    }
+    .arrange-inputs {
+        margin-top: 1rem;
+    }
 </style>
 
 <svelte:window on:hashchange={hashChange} />
@@ -172,6 +198,9 @@
 
     <Card step="2" title="Select and arrange input colors">
         <InputColors diverging="{mode==='diverging'}" bind:colors bind:colors2 />
+            <div class="arrange-inputs">
+                <span class="text-muted">Arrange by:</span> <ButtonGroup buttonSmall="{true}" options="{['manual', 'luminance', 'chroma', 'hue']}" bind:value={arrangeBy} />
+            </div>
     </Card>
 
     <Card step="3" title="Check and configure the resulting palette">
@@ -198,10 +227,10 @@
             bind:numColors={numOutputColors} />
         <div class="row">
             <div class="col-md">
-                <StepChart title="lightness" steps={steps} mode={0} />
+                <StepChart title="luminance" steps={steps} mode={0} />
             </div>
             <div class="col-md">
-                <StepChart title="saturation" steps={steps} mode={1} />
+                <StepChart title="chroma" steps={steps} mode={1} />
             </div>
             <div class="col-md">
                 <StepChart title="hue" steps={steps} mode={2} />

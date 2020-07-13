@@ -4,7 +4,7 @@
 	export let value;
 	export let label = '';
 	const id = Math.round(Math.random()*1e7).toString(36);
-
+	export let buttonSmall = false;
 </script>
 
 <style>
@@ -18,7 +18,7 @@
 
 <div class="btn-group btn-group-toggle" data-toggle="buttons">
     {#each options2 as option}
-    <label class="btn btn-outline-secondary"
+    <label class="btn btn-outline-secondary {buttonSmall ? 'btn-sm' : ''}"
         class:active={value===option.value}>
         <input bind:group={value} value="{option.value}" type="radio" name="options" id="{id}" autocomplete="off" checked={value===option.value}>{option.title}
     </label>
