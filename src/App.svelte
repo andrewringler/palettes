@@ -36,7 +36,7 @@
         bezier?1:0
     ].join('|');
 
-    $: bezierDisabled = mode==='manual' || (mode==='sequential' ? !(colors.length>1&&colors.length<=5) : !(colors2.length>1&&colors2.length<=5 || colors.length>1&&colors.length<=5));
+    $: bezierDisabled = (mode==='sequential' || mode==='manual') ? !(colors.length>1&&colors.length<=5) : !(colors2.length>1&&colors2.length<=5 || colors.length>1&&colors.length<=5);
     $: generateColorsDisabled = mode==='manual';
     $: numOutputColors = generateColorsDisabled ? colors.length : numColors;
 
