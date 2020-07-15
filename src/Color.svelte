@@ -2,11 +2,12 @@
     import chroma from 'chroma-js';
     import range from 'lodash-es/range';
     export let value = chroma('red');
+    export let readOnly = false
 
     let open = false;
     let dragging = false;
 
-    function toggleEditOpen() { open = true; }
+    function toggleEditOpen() { open = readOnly ? false : true; }
     function toggleEditClose() { open = false; }
 
     let colorName;
@@ -72,7 +73,7 @@
 </style>
 <span
     on:dragstart
-    on:dragstart="{(event) => dragging = true}"
+    on:dragstart="{(event) => dragging = readOnly ? false : true}"
     on:dragend="{(event) => dragging = false, open = false}"
     draggable="true"
     on:mouseenter={toggleEditOpen}

@@ -9,6 +9,7 @@
     import Card from './Card.svelte';
     import ColorBlindCheck from './ColorBlindCheck.svelte';
     import ButtonGroup from './ButtonGroup.svelte';
+    import ColorListReadOnly from './ColorListReadOnly.svelte';
 
     export let name;
 
@@ -40,6 +41,7 @@
     $: generateColorsDisabled = mode==='manual';
     $: numOutputColors = generateColorsDisabled ? colors.length : numColors;
     $: colors, arrangeBy, arrangeColors();
+    $: outputColors = steps.map(step => chroma(step))
 
     const isMac = navigator.platform.toUpperCase().indexOf('MAC') > -1;
 
@@ -175,8 +177,8 @@
 
 <div class="container">
     <div class="head">
-        <h1>Chroma.js Color Palette Helper</h1>
-        <p>This <a href="https://github.com/gka/chroma.js" target="_blank">chroma.js</a>-powered tool is here to help us  <a target="_blank" href="http://vis4.net/blog/posts/mastering-multi-hued-color-scales/">mastering multi-hued, multi-stops color scales</a>.</p>
+        <h1>Data Color Palettes</h1>
+        <p>This tools aids in generating perceptually meaningful and vision accessible color palettes for use in data visualization. Create sequential, <a target="_blank" href="http://vis4.net/blog/posts/mastering-multi-hued-color-scales/">multi-hued & multi-stop diverging</a> and qualitative color schemes.</p>
     </div>
     <Card step="1" title="What kind of palette do you want to create?">
         <div class="row">
@@ -225,6 +227,9 @@
             diverging="{mode === 'diverging'}"
             simulate={simulate}
             bind:numColors={numOutputColors} />
+         <div class="row" style="margin: 10px 0 10px 0">
+            <ColorListReadOnly bind:colors={outputColors} />
+        </div>
         <div class="row">
             <div class="col-md">
                 <StepChart title="luminance" steps={steps} mode={0} />
@@ -244,7 +249,7 @@
     </Card>
     <div class="foot">
         <hr>
-        <p>Adpated by Andrew Ringler from <a href="https://github.com/gka/palettes">palettes</a>, originally created by <a href="https://vis4.net/blog">Gregor Aisch</a> for the sake of better
-        use of colors in maps and data visualizations. Feel free to <a href="https://github.com/andrewringler/palettes">fork, this fork on Github</a>.</p>
+        <p>Check it out <a href="https://github.com/andrewringler/palettes">on Github</a></p>
+        <p>Adpated by <a href="https://andrewringler.com/">Andrew Ringler</a> from <a href="https://github.com/gka/palettes">palettes</a>, originally created by <a href="https://vis4.net/blog">Gregor Aisch</a>.</p>
     </div>
 </div>
