@@ -10416,7 +10416,7 @@ var app = (function () {
 
     	let buttongroup_props = {
     		buttonSmall: true,
-    		options: ['manual', 'luminance', 'chroma', 'hue']
+    		options: ['manual', 'lightness', 'chroma', 'hue']
     	};
     	if (ctx.arrangeBy !== void 0) {
     		buttongroup_props.value = ctx.arrangeBy;
@@ -10673,7 +10673,7 @@ var app = (function () {
 
     	var stepchart0 = new StepChart({
     		props: {
-    		title: "luminance",
+    		title: "lightness",
     		steps: ctx.steps,
     		mode: 0
     	},
@@ -11265,7 +11265,7 @@ var app = (function () {
                 return
             }
             setTimeout(() => {
-            if(arrangeBy === 'luminance') {
+            if(arrangeBy === 'lightness') {
                 $$invalidate('colors', colors = colors.sort((a, b) => a.lch()[0] > b.lch()[0] ? 1 : -1));
             }
             if(arrangeBy === 'chroma') {
