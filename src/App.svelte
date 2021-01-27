@@ -78,7 +78,7 @@
             return
         }
         setTimeout(() => {
-        if(arrangeBy === 'luminance') {
+        if(arrangeBy === 'lightness') {
             colors = colors.sort((a, b) => a.lch()[0] > b.lch()[0] ? 1 : -1)
         }
         if(arrangeBy === 'chroma') {
@@ -201,7 +201,7 @@
     <Card step="2" title="Select and arrange input colors">
         <InputColors diverging="{mode==='diverging'}" bind:colors bind:colors2 />
             <div class="arrange-inputs">
-                <span class="text-muted">Arrange by:</span> <ButtonGroup buttonSmall="{true}" options="{['manual', 'luminance', 'chroma', 'hue']}" bind:value={arrangeBy} />
+                <span class="text-muted">Arrange by:</span> <ButtonGroup buttonSmall="{true}" options="{['manual', 'lightness', 'chroma', 'hue']}" bind:value={arrangeBy} />
             </div>
     </Card>
 
@@ -232,7 +232,7 @@
         </div>
         <div class="row">
             <div class="col-md">
-                <StepChart title="luminance" steps={steps} mode={0} />
+                <StepChart title="lightness" steps={steps} mode={0} />
             </div>
             <div class="col-md">
                 <StepChart title="chroma" steps={steps} mode={1} />
