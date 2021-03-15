@@ -232,13 +232,16 @@
         </div>
         <div class="row">
             <div class="col-md">
-                <StepChart title="lightness" steps={steps} mode={0} />
+                <StepChart title="lightness (LCH)" steps={steps} mode={0} />
             </div>
             <div class="col-md">
-                <StepChart title="chroma" steps={steps} mode={1} />
+                <StepChart title="chroma (LCH)" steps={steps} mode={1} />
             </div>
             <div class="col-md">
-                <StepChart title="hue" steps={steps} mode={2} />
+                <StepChart title="hue (LCH)" steps={steps} mode={2} />
+            </div>
+            <div class="col-md">
+                <StepChart title="saturation (HSL)" steps={steps} mode={3} />
             </div>
         </div>
     </Card>

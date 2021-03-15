@@ -8693,10 +8693,10 @@ var app = (function () {
     			attr(line_1, "x2", line_1_x__value_1 = ctx.width-ctx.padding.right);
     			attr(line_1, "y1", line_1_y__value = ctx.yScale(ctx.values[0]));
     			attr(line_1, "y2", line_1_y__value_1 = ctx.yScale(ctx.values[ctx.values.length-1]));
-    			add_location(line_1, file$6, 90, 12, 2164);
+    			add_location(line_1, file$6, 90, 12, 2189);
     			attr(path_1, "d", ctx.path);
     			attr(path_1, "class", "svelte-1yea8y5");
-    			add_location(path_1, file$6, 96, 12, 2391);
+    			add_location(path_1, file$6, 96, 12, 2416);
     		},
 
     		m: function mount(target, anchor) {
@@ -8770,12 +8770,12 @@ var app = (function () {
     			attr(text_1, "x", text_1_x_value = ctx.padding.left-5);
     			attr(text_1, "y", text_1_y_value = ctx.yScale(ctx.y));
     			attr(text_1, "class", "svelte-1yea8y5");
-    			add_location(text_1, file$6, 87, 12, 1973);
+    			add_location(text_1, file$6, 87, 12, 1998);
     			attr(line_1, "x1", line_1_x__value = ctx.padding.left);
     			attr(line_1, "x2", line_1_x__value_1 = ctx.width-ctx.padding.right);
     			attr(line_1, "transform", line_1_transform_value = "translate(0," + ctx.yScale(ctx.y) + ")");
     			attr(line_1, "class", "svelte-1yea8y5");
-    			add_location(line_1, file$6, 88, 12, 2039);
+    			add_location(line_1, file$6, 88, 12, 2064);
     		},
 
     		m: function mount(target, anchor) {
@@ -8825,13 +8825,13 @@ var app = (function () {
     			svg = svg_element("svg");
     			if (if_block) if_block.c();
     			attr(h4, "class", "svelte-1yea8y5");
-    			add_location(h4, file$6, 83, 4, 1843);
+    			add_location(h4, file$6, 83, 4, 1868);
     			attr(svg, "height", svg_height_value = ctx.height || 50);
     			attr(svg, "class", "svelte-1yea8y5");
-    			add_location(svg, file$6, 84, 4, 1864);
+    			add_location(svg, file$6, 84, 4, 1889);
     			add_render_callback(() => ctx.div_1_resize_handler.call(div_1));
     			set_style(div_1, "margin-top", "1em");
-    			add_location(div_1, file$6, 82, 0, 1784);
+    			add_location(div_1, file$6, 82, 0, 1809);
     		},
 
     		l: function claim(nodes) {
@@ -8917,9 +8917,9 @@ var app = (function () {
 
     	let height, values, values2, xScale, minDomain, yScale, y0, y1, lineGen, path;
 
-    	$$self.$$.update = ($$dirty = { width: 1, steps: 1, mode: 1, values: 1, yDomain: 1, minDomain: 1, height: 1, yScale: 1, xScale: 1, lineGen: 1, values2: 1 }) => {
+    	$$self.$$.update = ($$dirty = { width: 1, mode: 1, steps: 1, values: 1, yDomain: 1, minDomain: 1, height: 1, yScale: 1, xScale: 1, lineGen: 1, values2: 1 }) => {
     		if ($$dirty.width) { $$invalidate('height', height = width * 0.7); }
-    		if ($$dirty.steps || $$dirty.mode) { $$invalidate('values', values = steps.map(c => chroma(c).lch()[mode]).map(mode === 2 ? h=>h: d=>d)); }
+    		if ($$dirty.mode || $$dirty.steps) { $$invalidate('values', values = mode <= 2 ? steps.map(c => chroma(c).lch()[mode]) : steps.map(c => chroma(c).hsl()[mode-3])); }
     		if ($$dirty.values) { $$invalidate('values2', values2 = values.concat(values[values.length-1])); }
     		if ($$dirty.steps || $$dirty.width) { $$invalidate('xScale', xScale = linear$1()
                     .domain([0, steps.length])
@@ -8929,9 +8929,9 @@ var app = (function () {
                     $$invalidate('yDomain', yDomain = extent(values));
                     let diff = Math.abs(yDomain[1] - yDomain[0]);
                     if (diff < minDomain) {
-                        yDomain[0] -= (minDomain-diff)*0.5; $$invalidate('yDomain', yDomain), $$invalidate('values', values), $$invalidate('minDomain', minDomain), $$invalidate('steps', steps), $$invalidate('mode', mode);
-                        yDomain[1] += (minDomain-diff)*0.5; $$invalidate('yDomain', yDomain), $$invalidate('values', values), $$invalidate('minDomain', minDomain), $$invalidate('steps', steps), $$invalidate('mode', mode);
-                        $$invalidate('yDomain', yDomain), $$invalidate('values', values), $$invalidate('minDomain', minDomain), $$invalidate('steps', steps), $$invalidate('mode', mode);
+                        yDomain[0] -= (minDomain-diff)*0.5; $$invalidate('yDomain', yDomain), $$invalidate('values', values), $$invalidate('minDomain', minDomain), $$invalidate('mode', mode), $$invalidate('steps', steps);
+                        yDomain[1] += (minDomain-diff)*0.5; $$invalidate('yDomain', yDomain), $$invalidate('values', values), $$invalidate('minDomain', minDomain), $$invalidate('mode', mode), $$invalidate('steps', steps);
+                        $$invalidate('yDomain', yDomain), $$invalidate('values', values), $$invalidate('minDomain', minDomain), $$invalidate('mode', mode), $$invalidate('steps', steps);
                     }
                 } }
     		if ($$dirty.yDomain || $$dirty.height) { $$invalidate('yScale', yScale = linear$1()
@@ -10522,7 +10522,7 @@ var app = (function () {
 
     // (208:4) <Card step="3" title="Check and configure the resulting palette">
     function create_default_slot_1(ctx) {
-    	var div2, div0, updating_value, t0, updating_value_1, t1, t2, div1, updating_colors, updating_active, t3, updating_steps, updating_correctLightness, updating_bezier, updating_colors_1, updating_colors2, updating_numColors, t4, div3, updating_colors_2, t5, div7, div4, t6, div5, t7, div6, current;
+    	var div2, div0, updating_value, t0, updating_value_1, t1, t2, div1, updating_colors, updating_active, t3, updating_steps, updating_correctLightness, updating_bezier, updating_colors_1, updating_colors2, updating_numColors, t4, div3, updating_colors_2, t5, div8, div4, t6, div5, t7, div6, t8, div7, current;
 
     	function checkbox0_value_binding(value) {
     		ctx.checkbox0_value_binding.call(null, value);
@@ -10673,7 +10673,7 @@ var app = (function () {
 
     	var stepchart0 = new StepChart({
     		props: {
-    		title: "lightness",
+    		title: "lightness (LCH)",
     		steps: ctx.steps,
     		mode: 0
     	},
@@ -10682,7 +10682,7 @@ var app = (function () {
 
     	var stepchart1 = new StepChart({
     		props: {
-    		title: "chroma",
+    		title: "chroma (LCH)",
     		steps: ctx.steps,
     		mode: 1
     	},
@@ -10691,9 +10691,18 @@ var app = (function () {
 
     	var stepchart2 = new StepChart({
     		props: {
-    		title: "hue",
+    		title: "hue (LCH)",
     		steps: ctx.steps,
     		mode: 2
+    	},
+    		$$inline: true
+    	});
+
+    	var stepchart3 = new StepChart({
+    		props: {
+    		title: "saturation (HSL)",
+    		steps: ctx.steps,
+    		mode: 3
     	},
     		$$inline: true
     	});
@@ -10716,7 +10725,7 @@ var app = (function () {
     			div3 = element("div");
     			colorlistreadonly.$$.fragment.c();
     			t5 = space();
-    			div7 = element("div");
+    			div8 = element("div");
     			div4 = element("div");
     			stepchart0.$$.fragment.c();
     			t6 = space();
@@ -10725,6 +10734,9 @@ var app = (function () {
     			t7 = space();
     			div6 = element("div");
     			stepchart2.$$.fragment.c();
+    			t8 = space();
+    			div7 = element("div");
+    			stepchart3.$$.fragment.c();
     			attr(div0, "class", "col-md");
     			add_location(div0, file$c, 209, 12, 6858);
     			attr(div1, "class", "col-md");
@@ -10738,11 +10750,13 @@ var app = (function () {
     			attr(div4, "class", "col-md");
     			add_location(div4, file$c, 233, 12, 7838);
     			attr(div5, "class", "col-md");
-    			add_location(div5, file$c, 236, 12, 7961);
+    			add_location(div5, file$c, 236, 12, 7967);
     			attr(div6, "class", "col-md");
-    			add_location(div6, file$c, 239, 12, 8081);
-    			attr(div7, "class", "row");
-    			add_location(div7, file$c, 232, 8, 7808);
+    			add_location(div6, file$c, 239, 12, 8093);
+    			attr(div7, "class", "col-md");
+    			add_location(div7, file$c, 242, 12, 8216);
+    			attr(div8, "class", "row");
+    			add_location(div8, file$c, 232, 8, 7808);
     		},
 
     		m: function mount(target, anchor) {
@@ -10762,15 +10776,18 @@ var app = (function () {
     			insert(target, div3, anchor);
     			mount_component(colorlistreadonly, div3, null);
     			insert(target, t5, anchor);
-    			insert(target, div7, anchor);
-    			append(div7, div4);
+    			insert(target, div8, anchor);
+    			append(div8, div4);
     			mount_component(stepchart0, div4, null);
-    			append(div7, t6);
-    			append(div7, div5);
+    			append(div8, t6);
+    			append(div8, div5);
     			mount_component(stepchart1, div5, null);
-    			append(div7, t7);
-    			append(div7, div6);
+    			append(div8, t7);
+    			append(div8, div6);
     			mount_component(stepchart2, div6, null);
+    			append(div8, t8);
+    			append(div8, div7);
+    			mount_component(stepchart3, div7, null);
     			current = true;
     		},
 
@@ -10848,6 +10865,10 @@ var app = (function () {
     			var stepchart2_changes = {};
     			if (changed.steps) stepchart2_changes.steps = ctx.steps;
     			stepchart2.$set(stepchart2_changes);
+
+    			var stepchart3_changes = {};
+    			if (changed.steps) stepchart3_changes.steps = ctx.steps;
+    			stepchart3.$set(stepchart3_changes);
     		},
 
     		i: function intro(local) {
@@ -10868,6 +10889,8 @@ var app = (function () {
 
     			transition_in(stepchart2.$$.fragment, local);
 
+    			transition_in(stepchart3.$$.fragment, local);
+
     			current = true;
     		},
 
@@ -10880,6 +10903,7 @@ var app = (function () {
     			transition_out(stepchart0.$$.fragment, local);
     			transition_out(stepchart1.$$.fragment, local);
     			transition_out(stepchart2.$$.fragment, local);
+    			transition_out(stepchart3.$$.fragment, local);
     			current = false;
     		},
 
@@ -10911,7 +10935,7 @@ var app = (function () {
 
     			if (detaching) {
     				detach(t5);
-    				detach(div7);
+    				detach(div8);
     			}
 
     			destroy_component(stepchart0, );
@@ -10919,11 +10943,13 @@ var app = (function () {
     			destroy_component(stepchart1, );
 
     			destroy_component(stepchart2, );
+
+    			destroy_component(stepchart3, );
     		}
     	};
     }
 
-    // (246:4) <Card step="4" title="Export the color codes in various formats">
+    // (249:4) <Card step="4" title="Export the color codes in various formats">
     function create_default_slot(ctx) {
     	var p, t0, a, t1, a_href_value, t2, kbd0, t3_value = ctx.isMac ? 'cmd' : 'ctrl', t3, t4, kbd1, t6, t7, current;
 
@@ -10948,12 +10974,12 @@ var app = (function () {
     			t7 = space();
     			export_1.$$.fragment.c();
     			attr(a, "href", a_href_value = "#/" + ctx.hash);
-    			add_location(a, file$c, 246, 67, 8351);
+    			add_location(a, file$c, 249, 67, 8499);
     			attr(kbd0, "class", "svelte-5kkour");
-    			add_location(kbd0, file$c, 246, 106, 8390);
+    			add_location(kbd0, file$c, 249, 106, 8538);
     			attr(kbd1, "class", "svelte-5kkour");
-    			add_location(kbd1, file$c, 246, 142, 8426);
-    			add_location(p, file$c, 246, 8, 8292);
+    			add_location(kbd1, file$c, 249, 142, 8574);
+    			add_location(p, file$c, 249, 8, 8440);
     		},
 
     		m: function mount(target, anchor) {
@@ -11096,19 +11122,19 @@ var app = (function () {
     			add_location(p0, file$c, 180, 8, 5310);
     			attr(div0, "class", "head svelte-5kkour");
     			add_location(div0, file$c, 178, 4, 5246);
-    			add_location(hr, file$c, 250, 8, 8520);
+    			add_location(hr, file$c, 253, 8, 8668);
     			attr(a1, "href", "https://github.com/andrewringler/palettes");
-    			add_location(a1, file$c, 251, 24, 8549);
-    			add_location(p1, file$c, 251, 8, 8533);
+    			add_location(a1, file$c, 254, 24, 8697);
+    			add_location(p1, file$c, 254, 8, 8681);
     			attr(a2, "href", "https://andrewringler.com/");
-    			add_location(a2, file$c, 252, 22, 8641);
+    			add_location(a2, file$c, 255, 22, 8789);
     			attr(a3, "href", "https://github.com/gka/palettes");
-    			add_location(a3, file$c, 252, 83, 8702);
+    			add_location(a3, file$c, 255, 83, 8850);
     			attr(a4, "href", "https://vis4.net/blog");
-    			add_location(a4, file$c, 252, 161, 8780);
-    			add_location(p2, file$c, 252, 8, 8627);
+    			add_location(a4, file$c, 255, 161, 8928);
+    			add_location(p2, file$c, 255, 8, 8775);
     			attr(div1, "class", "foot svelte-5kkour");
-    			add_location(div1, file$c, 249, 4, 8493);
+    			add_location(div1, file$c, 252, 4, 8641);
     			attr(div2, "class", "container");
     			add_location(div2, file$c, 177, 0, 5218);
     			dispose = listen(window, "hashchange", ctx.hashChange);
