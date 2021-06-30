@@ -4,6 +4,8 @@ import commonjs from 'rollup-plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import path from 'path';
+import globals from "rollup-plugin-node-globals";
+import builtins from "rollup-plugin-node-builtins";
 
 const production = !process.env.ROLLUP_WATCH || process.env.NODE_ENV === 'production';
 
@@ -19,6 +21,9 @@ export default {
 		file: 'docs/bundle.js'
 	},
 	plugins: [
+		globals(),
+		builtins(),
+
 		svelte({
 			// enable run-time checks when not in production
 			dev: !production,
